@@ -12,7 +12,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import Header from '@/components/Header.vue'
+import Header from '@/layout/components/Header.vue'
 </script>
 
 <style scoped lang="scss">

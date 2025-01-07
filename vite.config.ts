@@ -6,6 +6,12 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vite.dev/config/
 export default defineConfig({
+  // 代理，解决跨域问题
+  // server: {
+  //   proxy: {
+  //     '/api' : 'http://localhost:8099'
+  //   }
+  // },
   plugins: [
     vue(),
     vueDevTools(),

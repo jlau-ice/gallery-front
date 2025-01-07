@@ -1,12 +1,22 @@
 <template>
   <div id="app">
-    <layout />
+    <a-config-provider :locale="zhCN">
+      <layout />
+    </a-config-provider>
   </div>
 </template>
 <script setup lang="ts">
 import layout from '@/layout/index.vue'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
+import dayjs from 'dayjs'
+import 'dayjs/locale/zh-cn'
+
+dayjs.locale('zh-cn')
+
+import { useLoginUserStore } from '@/stores/useLoginUserStateStore.ts'
+
+const longinUserStore = useLoginUserStore()
+longinUserStore.fetchLoginUser()
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
