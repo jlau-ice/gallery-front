@@ -10,17 +10,12 @@
         </router-link>
       </a-col>
       <a-col flex="auto">
-        <a-menu
-          v-model:selectedKeys="current"
-          mode="horizontal"
-          :items="items"
-          @click="menuClick"
-        />
+        <a-menu v-model:selectedKeys="current" mode="horizontal" :items="items" @click="menuClick" />
       </a-col>
       <a-col flex="120px">
         <div class="user-login-status">
           <div v-if="longinUserStore.loginUser.id">
-            <a-dropdown>
+            <a-dropdown placement="bottom">
               <a class="ant-dropdown-link" @click.prevent>
                 <a-space>
                   <a-avatar :src="longinUserStore.loginUser.userAvatar" />
@@ -54,6 +49,8 @@ import { useLoginUserStore } from '@/stores/useLoginUserStateStore.ts'
 import { userLogoutUsingPost } from '@/api/userController.ts'
 
 const longinUserStore = useLoginUserStore()
+const router = useRouter()
+
 const items = ref<MenuProps['items']>([
   {
     key: '/home',
@@ -62,34 +59,31 @@ const items = ref<MenuProps['items']>([
     title: '主页',
   },
   {
-    key: '/about',
-    // icon: h(AppstoreOutlined),
-    label: '关于',
-    title: '关于',
+    key: '/admin/userManager',
+    label: '用户管理',
+    title: '用户管理',
   },
   {
     key: '/other',
-    // icon: h(SettingOutlined),
     label: h('a', { href: 'https://ant.design', target: '_blank' }, '其他'),
     title: '设置',
   },
 ])
-const router = useRouter()
+
+const current = ref<string[]>([router.currentRoute.value.path])
 
 const menuClick = ({ key }: { key: string }) => {
   router.push(key)
 }
 
-// 默认高亮
-const current = ref<string[]>([''])
-router.afterEach((to, from, next) => {
+router.afterEach((to, from) => {
   current.value = [to.path]
 })
 
 const logout = async () => {
   const res = await userLogoutUsingPost();
   if (res.data.code === 0) {
-    longinUserStore.setLoginUser({userName: '未登录'})
+    longinUserStore.setLoginUser({ userName: '未登录' })
     message.success('退出成功')
     await router.push({
       path: '/user/login',
