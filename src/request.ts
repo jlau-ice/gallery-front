@@ -25,11 +25,13 @@ request.interceptors.response.use(
     if (data.code === 40100) {
       // 不是获取用户信息的请求，并且用户目前不是已经在用户登录页面，则跳转到登录页面
       if (
-        !response.request.responseURL.includes('user/get/login') &&
-        !window.location.pathname.includes('/user/login')
+        !response.request.responseURL.includes('/login') &&
+        !window.location.pathname.includes('/login')
       ) {
+        // 重定向
         void message.warning('请先登录')
-        window.location.href = `/user/login?redirect=${window.location.href}`
+        // ?redirect=${window.location.href}
+        window.location.href = `/user/login`
       }
     }
     return response
