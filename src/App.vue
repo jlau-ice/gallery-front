@@ -9,13 +9,10 @@
 import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import dayjs from 'dayjs'
 import 'dayjs/locale/zh-cn'
-
 dayjs.locale('zh-cn')
-
-import { useLoginUserStore } from '@/stores/useLoginUserStateStore.ts'
-
-const longinUserStore = useLoginUserStore()
-longinUserStore.fetchLoginUser()
+// import { useLoginUserStore } from '@/stores/useLoginUserStateStore.ts'
+// const loginUserStore = useLoginUserStore()
+// loginUserStore.fetchLoginUser()
 </script>
 
 <style scoped></style>

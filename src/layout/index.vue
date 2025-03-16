@@ -18,17 +18,25 @@ import Header from '@/layout/components/Header.vue'
 <style scoped lang="scss">
 .main {
   min-height: 100vh;
+
   .header {
     background: white;
     color: unset;
     margin-bottom: 16px;
     padding-inline: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    width: 100%;
   }
 
   .content {
-    padding: 40px;
+    padding: 20px;
     background: linear-gradient(to right, #fefefe, #fff);
     margin-bottom: 20px;
+    margin-top: 64px;
   }
 
   .footer {

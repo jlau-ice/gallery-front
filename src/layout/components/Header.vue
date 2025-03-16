@@ -41,7 +41,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { h, ref } from 'vue'
+import { computed, h, ref } from 'vue'
 import { HomeOutlined, LoginOutlined } from '@ant-design/icons-vue'
 import { type MenuProps, message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
@@ -51,7 +51,7 @@ import { userLogoutUsingPost } from '@/api/userController.ts'
 const longinUserStore = useLoginUserStore()
 const router = useRouter()
 
-const items = ref<MenuProps['items']>([
+const originItems = [
   {
     key: '/home',
     icon: h(HomeOutlined),
@@ -68,7 +68,22 @@ const items = ref<MenuProps['items']>([
     label: h('a', { href: 'https://ant.design', target: '_blank' }, '其他'),
     title: '设置',
   },
-])
+]
+const items = computed<MenuProps['items']>(() => filterMenus(originItems))
+
+const filterMenus = (menus = [] as MenuProps['items']) => {
+  return menus?.filter((menus) => {
+    const key = menus?.key?.toString()
+    if (key?.startsWith('/admin')) {
+      const loginUser = longinUserStore.loginUser
+      // if (!loginUser || loginUser.userRole !== 'admin') {
+      //   return false
+      // }
+      return loginUser && loginUser.userRole === 'admin'
+    }
+    return true
+  })
+}
 
 const current = ref<string[]>([router.currentRoute.value.path])
 
@@ -81,12 +96,12 @@ router.afterEach((to, from) => {
 })
 
 const logout = async () => {
-  const res = await userLogoutUsingPost();
+  const res = await userLogoutUsingPost()
   if (res.data.code === 0) {
     longinUserStore.setLoginUser({ userName: '未登录' })
     message.success('退出成功')
     await router.push({
-      path: '/user/login',
+      path: '/login',
       replace: true,
     })
   } else {
