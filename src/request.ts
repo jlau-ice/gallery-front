@@ -31,7 +31,7 @@ request.interceptors.response.use(
         // 重定向
         void message.warning('请先登录')
         // ?redirect=${window.location.href}
-        window.location.href = `/user/login`
+        window.location.href = `/login`
       }
     }
     return response
