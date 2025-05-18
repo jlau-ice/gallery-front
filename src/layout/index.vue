@@ -4,7 +4,7 @@
       <a-layout-header class="header">
         <Header />
       </a-layout-header>
-      <a-layout-content class="content">
+      <a-layout-content class="p-[20px] mt-[64px] mb-[20px]">
         <router-view />
       </a-layout-content>
       <a-layout-footer class="footer"> carbon-dioxide</a-layout-footer>
