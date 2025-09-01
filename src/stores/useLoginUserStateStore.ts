@@ -14,8 +14,8 @@ export const useLoginUserStore = defineStore("loginUser", () => {
       loginUser.value = res.data.data;
     }
   }
-  function setLoginUser(newLoginUser: any) {
-    loginUser.value = newLoginUser;
+  function setLoginUser(newLoginUser: API.UserLoginVO) {
+    loginUser.value = newLoginUser
   }
   return { loginUser, setLoginUser, fetchLoginUser };
 });

@@ -3,7 +3,7 @@ import { message } from 'ant-design-vue'
 import router from '@/router'
 
 // 是否为首次获取登录用户
-let firstFetchLoginUser = true;
+let firstFetchLoginUser = true
 
 /**
  * 全局权限校验
@@ -17,7 +17,7 @@ router.beforeEach(async (to, from, next) => {
   if (firstFetchLoginUser) {
     await loginUserStore.fetchLoginUser()
     loginUser = loginUserStore.loginUser
-    firstFetchLoginUser = false;
+    firstFetchLoginUser = false
   }
   const toUrl = to.fullPath
   if (toUrl.startsWith('/admin')) {

@@ -30,14 +30,9 @@
           {{ dayjs(record.createTime).format('YYYY-MM-DD HH:mm:ss') }}
         </template>
         <template v-else-if="column.key === 'action'">
-          <a-button type="text" class="text-primary">
-            <EditOutlined />编辑
-          </a-button>
-          <a-popconfirm title="确定要删除这个用户吗？" ok-text="确定" cancel-text="取消" placement="left"
-            @confirm="deleteUser(record.id)">
-            <a-button type="text" class="text-danger">
-              <DeleteOutlined />删除
-            </a-button>
+          <a-button type="text" class="text-primary"> <EditOutlined />编辑 </a-button>
+          <a-popconfirm title="确定要删除这个用户吗？" ok-text="确定" cancel-text="取消" placement="left" @confirm="deleteUser(record.id)">
+            <a-button type="text" class="text-danger"> <DeleteOutlined />删除 </a-button>
           </a-popconfirm>
         </template>
       </template>
@@ -48,7 +43,7 @@
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue'
 import { reactive, ref, onMounted, computed } from 'vue'
 import { deleteUserUsingPost, getUserListUsingPost } from '@/api/userController.ts'
-import { message, Modal } from 'ant-design-vue'
+import { message } from 'ant-design-vue'
 import dayjs from 'dayjs'
 
 const columns = [
@@ -115,7 +110,13 @@ const pagination = computed(() => {
     showTotal: () => `共 ${total.value} 条记录`,
   }
 })
-const onChange = (page: any) => {
+
+interface Pagination {
+    current: number;
+    pageSize: number;
+}
+
+const onChange = (page: Pagination) => {
   console.log(page)
   searchPrams.current = page.current
   searchPrams.pageSize = page.pageSize
@@ -134,7 +135,7 @@ const doSearch = () => {
   searchPrams.current = 1
   fetchData()
 }
-const searchFiled = (errorInfo: any) => {
+const searchFiled = (errorInfo: unknown) => {
   console.log('Failed:', errorInfo)
 }
 

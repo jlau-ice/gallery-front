@@ -4,7 +4,7 @@ import ACCESS_ENUM from './accessEnum'
 import checkAccess from './checkAccess'
 
 // 是否为首次获取登录用户
-let firstFetchLoginUser = true;
+let firstFetchLoginUser = true
 
 router.beforeEach(async (to, from, next) => {
   const loginUserStore = useLoginUserStore()
@@ -12,7 +12,7 @@ router.beforeEach(async (to, from, next) => {
   if (firstFetchLoginUser) {
     await loginUserStore.fetchLoginUser()
     loginUser = loginUserStore.loginUser
-    firstFetchLoginUser = false;
+    firstFetchLoginUser = false
   }
   console.log('登陆用户信息', loginUser)
   const needAccess = (to.meta?.access as string) ?? ACCESS_ENUM.NOT_LOGIN

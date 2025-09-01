@@ -3,9 +3,9 @@
     <a-row :wrap="false">
       <a-col flex="180px">
         <router-link to="/">
-          <div class="title-bar">
-            <img src="@/assets/logo.png" alt="logo" class="logo" />
-            <div class="title">智 能 云 图 库</div>
+          <div class="flex items-center h-full">
+            <img src="@/assets/logo.png" alt="logo" class="h-[30px]" />
+            <div class="text-black text-lg ml-[15px]">智 能 云 图 库</div>
           </div>
         </router-link>
       </a-col>
@@ -15,11 +15,14 @@
       <a-col flex="120px">
         <div class="user-login-status">
           <div v-if="longinUserStore.loginUser.id">
-            <a-dropdown placement="bottom">
-              <a class="ant-dropdown-link" @click.prevent>
+            <a-dropdown placement="bottom" :trigger="['click']" :overlay-style="{ height: '10px' }">
+              <a class="ant-dropdown-link h-[64px]" @click.prevent>
                 <a-space>
                   <a-avatar :src="longinUserStore.loginUser.userAvatar" />
-                  <div>{{ longinUserStore.loginUser.userName }}</div>
+                  <div class="w-[50px] text-nowrap overflow-hidden text-ellipsis">
+                    {{ longinUserStore.loginUser.userName }}
+                  </div>
+                  <DownOutlined />
                 </a-space>
               </a>
               <template #overlay>
@@ -42,7 +45,7 @@
 </template>
 <script lang="ts" setup>
 import { computed, h, ref } from 'vue'
-import { HomeOutlined, LoginOutlined } from '@ant-design/icons-vue'
+import { HomeOutlined, LoginOutlined, DownOutlined } from '@ant-design/icons-vue'
 import { type MenuProps, message } from 'ant-design-vue'
 import { useRouter } from 'vue-router'
 import { useLoginUserStore } from '@/stores/useLoginUserStateStore.ts'
@@ -93,6 +96,7 @@ const menuClick = ({ key }: { key: string }) => {
 
 router.afterEach((to, from) => {
   current.value = [to.path]
+  console.log(from)
 })
 
 const logout = async () => {
@@ -109,19 +113,4 @@ const logout = async () => {
   }
 }
 </script>
-<style lang="scss" scoped>
-.title-bar {
-  display: flex;
-  align-items: center;
-
-  .title {
-    color: black;
-    font-size: 18px;
-    margin-left: 15px;
-  }
-
-  .logo {
-    height: 30px;
-  }
-}
-</style>
+<style lang="scss" scoped></style>
